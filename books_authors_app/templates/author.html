@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel='stylesheet' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id='main'>
+        <div id='left'>
+            <h1>Add an Author</h1>
+            <form action='/author/create' method='POST'>
+                {% csrf_token %}
+                <p>First Name: <input type='text' name='fname' placeholder="first name"></p>
+                <p>Last Name: <input type='text' name='lname' placeholder="last name"></p>
+                <p>Notes:</p>
+                <textarea name="notes" rows="4" cols="50" placeholder="Enter text here..."></textarea>
+                <input id="sub" type='submit'>
+            </form>
+        </div>
+        <div id='right'>    
+            <table>
+                <tr>  
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+                {% for author in authors %}
+                <tr>
+                    <td>{{ author.id }}</td>
+                    <td>{{ author.first_name }} {{ author.last_name }}</td>
+                    <td><a href='/author/{{ author.id }}'>View | <a href='/author/{{ author.id }}/delete'>Delete</a></td>   
+                </tr>
+                {% endfor %}
+            </table> 
+        </div>
+    </div>
+    <div id='next'><a id='next1' href='/'>Go to Books page..</a></div>
+</body>
+</html>
